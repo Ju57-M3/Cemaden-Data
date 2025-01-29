@@ -4,7 +4,8 @@ const { Actor } = require('apify');
 async function run() {
     await Actor.init();
 
-    const browser = await Actor.launchPuppeteer({ headless: false });  // Usando o puppeteer do Apify
+    // Substituir Actor.launchPuppeteer por Apify.launchPuppeteer
+    const browser = await Apify.launchPuppeteer({ headless: false });  // Usando o puppeteer do Apify
     const page = await browser.newPage();
 
     // Disfarça o Puppeteer como um navegador comum
