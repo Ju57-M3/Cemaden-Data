@@ -1,10 +1,10 @@
-const { Actor } = require('apify');
-const puppeteer = require('puppeteer');
+const { Actor, launchPuppeteer } = require('apify');
 
 async function run() {
     await Actor.init();
 
-    const browser = await puppeteer.launch({ headless: true });  // Agora sim!
+    // Usa o Puppeteer do Apify
+    const browser = await launchPuppeteer({ headless: true });
     const page = await browser.newPage();
 
     // Disfarça o Puppeteer como um navegador comum
@@ -12,7 +12,6 @@ async function run() {
     await page.setExtraHTTPHeaders({ "Accept-Language": "pt-BR,pt;q=0.9,en;q=0.8" });
 
     const url = "https://resources.cemaden.gov.br/graficos/interativo/grafico_CEMADEN.php?idpcd=7049&uf=SP";
-
     await page.goto(url, { waitUntil: 'networkidle2' });
 
     // Aguarda um tempo extra para garantir que o Angular carregue os dados
