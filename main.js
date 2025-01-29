@@ -32,7 +32,4 @@ console.log("Dados coletados:", JSON.stringify(dados, null, 2));
 
 await browser.close();
 await Actor.pushData(dados);
-
-console.log(await page.content());
-
 await Actor.exit();
