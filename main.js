@@ -1,11 +1,10 @@
-const { Actor } = require('apify'); // 'Actor' continua sendo necessário
-// const puppeteer = require('puppeteer');  // Remover esta linha
+import { Actor } from 'apify';
+import puppeteer from 'puppeteer';
 
 async function run() {
     await Actor.init();
 
-    // Usando Apify.launchPuppeteer para iniciar o Puppeteer
-    const browser = await Apify.launchPuppeteer({ headless: false });  // Usando o puppeteer do Apify
+    const browser = await puppeteer.launch({ headless: true });  // Agora sim!
     const page = await browser.newPage();
 
     // Disfarça o Puppeteer como um navegador comum

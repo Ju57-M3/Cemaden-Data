@@ -3,6 +3,7 @@
     "version": "1.0.0",
     "description": "Nop... Apenas nop. ;-;",
     "main": "main.js",
+    "type": "module",
     "scripts": {
       "start": "node main.js"
     },
@@ -12,5 +13,4 @@
     },
     "author": "",
     "license": "ISC"
-  }
-  
+}
