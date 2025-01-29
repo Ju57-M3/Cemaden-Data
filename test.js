@@ -3,10 +3,10 @@ import puppeteer from 'puppeteer';
 
 await Actor.init();
 
-const browser = await puppeteer.launch({ headless: true }); // Garante execução em background
+const browser = await puppeteer.launch({ headless: false }); // Coloca headless: false para ver o que acontece
 const page = await browser.newPage();
 
-// Disfarça o Puppeteer como navegador comum
+// Disfarça o Puppeteer como um navegador comum
 await page.setUserAgent("Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36");
 await page.setExtraHTTPHeaders({ "Accept-Language": "pt-BR,pt;q=0.9,en;q=0.8" });
 
@@ -14,26 +14,22 @@ const url = "https://resources.cemaden.gov.br/graficos/interativo/grafico_CEMADE
 
 await page.goto(url, { waitUntil: 'networkidle2' });
 
-// Aguarda a tabela carregar completamente
-await page.waitForSelector("table thead tr td", { timeout: 15000 });
+// Aguarda um tempo extra para garantir que o Angular carregue os dados
+await page.waitForTimeout(5000);
+
+// Aguarda especificamente uma célula que deve conter dados reais
+await page.waitForSelector("table thead tr:nth-child(3) td", { timeout: 15000 });
 
 const dados = await page.evaluate(() => {
-    const linhas = Array.from(document.querySelectorAll("table thead tr td"));
-    
+    const linhas = Array.from(document.querySelectorAll("table thead tr")); // Captura TRs
     return linhas.map(linha => {
-        let colunas = linha.querySelectorAll("td");
-        // Aqui você pega os dados de dentro de cada linha e retorna
-        return Array.from(colunas).map(coluna => coluna.innerText.trim());
+        const colunas = Array.from(linha.querySelectorAll("th, td"));
+        return colunas.map(coluna => coluna.innerText.trim());
     });
 });
 
-console.log(dados); // Mostra os dados coletados para conferir o conteúdo
-
-await browser.close();
-
-// Salva os dados no Apify Dataset (para consulta posterior via API)
-await Actor.pushData(dados);
-
 console.log("Dados coletados:", JSON.stringify(dados, null, 2));
 
+await browser.close();
+await Actor.pushData(dados);
 await Actor.exit();
