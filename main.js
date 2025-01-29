@@ -1,5 +1,5 @@
-import { Actor } from 'apify';
-import puppeteer from 'puppeteer';
+const { Actor } = require('apify');
+const puppeteer = require('puppeteer');
 
 async function run() {
     await Actor.init();
