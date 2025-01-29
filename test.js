@@ -6,7 +6,7 @@ await Actor.init();
 const browser = await puppeteer.launch();
 const page = await browser.newPage();
 
-const url = "https://resources.cemaden.gov.br/graficos/interativo/grafico_CEMADEN.php?idpcd=7049&uf=SP";
+const url = "https://resources.cemaden.gov.br/graficos/interativo/grafico_CEMADEN.php?uf=SP";
 
 await page.goto(url, { waitUntil: 'networkidle2' });
 
