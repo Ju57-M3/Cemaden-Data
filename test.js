@@ -19,11 +19,15 @@ await page.waitForSelector("table thead tr td", { timeout: 15000 });
 
 const dados = await page.evaluate(() => {
     const linhas = Array.from(document.querySelectorAll("table thead tr td"));
+    
     return linhas.map(linha => {
         let colunas = linha.querySelectorAll("td");
-        return Array.from(colunas).map(td => td.innerText.trim());
+        // Aqui você pega os dados de dentro de cada linha e retorna
+        return Array.from(colunas).map(coluna => coluna.innerText.trim());
     });
 });
+
+console.log(dados); // Mostra os dados coletados para conferir o conteúdo
 
 await browser.close();
 
