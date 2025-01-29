@@ -1,5 +1,5 @@
-const { Actor } = require('apify');
-const puppeteer = require('puppeteer');
+import ju57-m3/Cemaden-Data from 'apify';
+import puppeteer from 'puppeteer';
 
 await Actor.init();
 
