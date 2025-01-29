@@ -6,26 +6,17 @@ await Actor.init();
 const browser = await puppeteer.launch();
 const page = await browser.newPage();
 
-const url = "https://resources.cemaden.gov.br/graficos/interativo/grafico_CEMADEN.php?uf=SP";
+const url = "https://resources.cemaden.gov.br/graficos/interativo/grafico_CEMADEN.php?idpcd=7049&uf=SP";
 
 await page.goto(url, { waitUntil: 'networkidle2' });
 
 // Função para extrair os dados
 const dados = await page.evaluate(() => {
-    const linhas = document.querySelectorAll("#infopcds > thead > tr"); // Seleciona todas as linhas da tabela
-    let resultados = [];
-
-    linhas.forEach((linha, index) => {
+    const linhas = Array.from(document.querySelectorAll("table tbody tr"));
+    return linhas.map(linha => {
         let colunas = linha.querySelectorAll("td");
-        let valores = Array.from(colunas).map(td => td.innerText.trim());
-        
-        resultados.push({
-            linha: index + 1,
-            valores
-        });
+        return Array.from(colunas).map(td => td.innerText.trim());
     });
-
-    return resultados;
 });
 
 await browser.close();
