@@ -1,0 +1,16 @@
+{
+    "name": "cemaden-data",
+    "version": "1.0.0",
+    "description": "Nop... Apenas nop. ;-;",
+    "main": "main.js",
+    "scripts": {
+      "start": "node main.js"
+    },
+    "dependencies": {
+      "puppeteer": "^21.0.0",
+      "apify": "^2.0.0"
+    },
+    "author": "",
+    "license": "ISC"
+  }
+  
