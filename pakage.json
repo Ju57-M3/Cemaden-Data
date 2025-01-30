@@ -9,7 +9,7 @@
     },
     "dependencies": {
         "puppeteer-core": "^21.0.0",
-        "apify": "^2.0.0"
+        "apify": "^3.0.0"
     },
     "author": "",
     "license": "ISC"
